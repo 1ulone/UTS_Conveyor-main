@@ -11,6 +11,7 @@ public class PneumaticController : MonoBehaviour
 	[SerializeField] private TextMeshProUGUI points;
 	private float pushSpeed;
 	private Transform objectToMove, disposalTarget;
+	public int Points { get; private set; }
 
 	private void Awake()
 	{
@@ -58,15 +59,13 @@ public class PneumaticController : MonoBehaviour
 		if (bb.colorIndex != i) 
 			LivesSystem.instances.DecreaseLives(); 	
 		else 
+		{
 			points.text = (Convert.ToInt32(points.text) + bb.points).ToString();
+			Points = Convert.ToInt32(points.text);
+		}
 
 		ConveyorBelt.instances.DestroyItem(bb.index);
 		objectToMove = null;
 		disposalTarget = null;
-	}
-
-	private void OnDrawGizmos()
-	{
-		Gizmos.DrawWireSphere(pneumatics[0].position + Vector3.up*1.25f, 0.5f);
 	}
 }

@@ -23,5 +23,8 @@ public class Timer : MonoBehaviour
 			seconds = 60;
 		}
 		ttext.text =  minutes.ToString() + ":" + (Math.Round(seconds)==60?"00":Math.Round(seconds).ToString());
+
+		if (minutes <= 0)
+			LivesSystem.instances.GameOver();
 	}
 }

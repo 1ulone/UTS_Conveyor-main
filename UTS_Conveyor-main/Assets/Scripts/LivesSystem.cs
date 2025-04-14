@@ -1,5 +1,6 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using TMPro;
 
 public class LivesSystem : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class LivesSystem : MonoBehaviour
 	private int lives;
 	[SerializeField] private GameObject[] livesUI;
 	[SerializeField] private CanvasGroup gameOverScreen;
+	[SerializeField] private TextMeshProUGUI score;
 
 	private void Awake()
 	{
@@ -25,10 +27,14 @@ public class LivesSystem : MonoBehaviour
 		lives--; 
 		livesUI[lives].SetActive(false);
 		if (lives <= 0)
-		{
-			gameOverScreen.alpha = 1;
-			Time.timeScale = 0;
-		}
+			GameOver();
+	}
+
+	public void GameOver()
+	{
+		gameOverScreen.alpha = 1;
+		Time.timeScale = 0;
+		score.text = FindFirstObjectByType<PneumaticController>().Points.ToString();
 	}
 
 	public void Restart()
